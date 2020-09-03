@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect, useContext } from 'react';
 
+import { storage } from '../../utils/storage';
 import { loginAction, logoutAction } from './auth.actions';
 import { authReducer, initialState } from './auth.reducer';
 
@@ -15,13 +16,23 @@ function useAuth() {
 
 const authStorageKey = 'REACT-CHALLENGE-AUTH';
 
-function AuthProvider({ children, ...otherProps }) {
-  const [state, dispatch] = useReducer(authReducer, {
-    ...initialState,
-    user: localStorage.getItem(authStorageKey)
-      ? JSON.parse(localStorage.getItem(authStorageKey))
-      : null,
-  });
+function lazyInit(state) {
+  return {
+    ...state,
+    user: storage.has(authStorageKey) ? storage.get(authStorageKey) : null,
+  };
+}
+
+function AuthProvider({ children }) {
+  const [state, dispatch] = useReducer(authReducer, initialState, lazyInit);
+
+  useEffect(() => {
+    if (state.user) {
+      storage.set(authStorageKey, state.user);
+    } else {
+      storage.remove(authStorageKey);
+    }
+  }, [state.user]);
 
   const value = {
     ...state,
@@ -30,14 +41,6 @@ function AuthProvider({ children, ...otherProps }) {
     isLoggedIn: Boolean(state.user),
   };
 
-  useEffect(() => {
-    if (state.user) {
-      localStorage.setItem(authStorageKey, JSON.stringify(state.user));
-    } else {
-      localStorage.removeItem(authStorageKey);
-    }
-  }, [state.user]);
-
   function renderChildren() {
     if (typeof children === 'function') {
       return children(state);
@@ -45,11 +48,7 @@ function AuthProvider({ children, ...otherProps }) {
     return children;
   }
 
-  return (
-    <AuthContext.Provider {...otherProps} value={value}>
-      {renderChildren()}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{renderChildren()}</AuthContext.Provider>;
 }
 
 export { useAuth };

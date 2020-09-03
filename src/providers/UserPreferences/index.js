@@ -1,1 +1,1 @@
-export { default, useUserPreferencesContext } from './UserPreferences.provider';
+export { default, useUserPreferences } from './UserPreferences.provider';

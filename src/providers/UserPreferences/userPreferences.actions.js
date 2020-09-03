@@ -4,14 +4,14 @@ export const ACTIONS = {
   SET_INVERSE_THEME: 'SET_INVERSE_THEME',
 };
 
-export const addFavoriteVideoAction = (dispatch) => async (video) => {
+export const addFavoriteVideoAction = (dispatch) => (video) => {
   dispatch({
     type: ACTIONS.ADD_FAVORITE_VIDEO,
     payload: { video },
   });
 };
 
-export const removeFavoriteVideoAction = (dispatch) => async (video) => {
+export const removeFavoriteVideoAction = (dispatch) => (video) => {
   dispatch({
     type: ACTIONS.REMOVE_FAVORITE_VIDEO,
     payload: { video },

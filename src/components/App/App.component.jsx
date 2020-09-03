@@ -7,7 +7,7 @@ import UserPreferencesProvider from '../../providers/UserPreferences';
 import AuthProvider from '../../providers/Auth';
 import VideoProvider from '../../providers/Video';
 import { useGapi } from '../../utils/hooks/useGapi';
-
+import Router from '../Router';
 import DivLoader from './App.styled';
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
             {({ theme }) => (
               <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <div>App</div>
+                <Router />
               </ThemeProvider>
             )}
           </UserPreferencesProvider>
