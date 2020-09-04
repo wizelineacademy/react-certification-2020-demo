@@ -19,11 +19,11 @@ const authStorageKey = 'REACT-CHALLENGE-AUTH';
 function lazyInit(state) {
   return {
     ...state,
-    user: storage.has(authStorageKey) ? storage.get(authStorageKey) : null,
+    user: storage.get(authStorageKey),
   };
 }
 
-function AuthProvider({ children }) {
+function AuthProvider(props) {
   const [state, dispatch] = useReducer(authReducer, initialState, lazyInit);
 
   useEffect(() => {
@@ -41,14 +41,7 @@ function AuthProvider({ children }) {
     isLoggedIn: Boolean(state.user),
   };
 
-  function renderChildren() {
-    if (typeof children === 'function') {
-      return children(state);
-    }
-    return children;
-  }
-
-  return <AuthContext.Provider value={value}>{renderChildren()}</AuthContext.Provider>;
+  return <AuthContext.Provider {...props} value={value} />;
 }
 
 export { useAuth };

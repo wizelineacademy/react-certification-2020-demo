@@ -8,7 +8,7 @@ export const ACTIONS = {
   SET_CURRENT_VIDEO: 'SET_CURRENT_VIDEO',
 };
 
-function mapVideo(videoData) {
+function filterVideoData(videoData) {
   const { snippet, id } = videoData;
 
   const decodedVideoTitle = snippet.title ? he.decode(snippet.title) : '';
@@ -29,14 +29,15 @@ export const fetchVideosAction = (dispatch) => async (searchTerm) => {
   dispatch({ type: ACTIONS.FETCH_VIDEOS });
 
   try {
+    const part = ['id', 'snippet'];
     const { result } = await window.gapi.client.youtube.search.list({
-      part: ['id', 'snippet'],
       maxResults: 25,
       q: searchTerm,
+      part,
     });
     const videos = result.items
       .filter((video) => video.id.kind === 'youtube#video')
-      .map(mapVideo);
+      .map(filterVideoData);
 
     dispatch({
       type: ACTIONS.FETCH_VIDEOS_SUCCESS,

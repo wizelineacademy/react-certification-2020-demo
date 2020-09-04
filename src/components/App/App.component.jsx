@@ -1,17 +1,15 @@
 import React from 'react';
 import Loader from 'react-loader-spinner';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { ThemeProvider } from '@material-ui/core/styles';
 
 import UserPreferencesProvider from '../../providers/UserPreferences';
 import AuthProvider from '../../providers/Auth';
 import VideoProvider from '../../providers/Video';
 import { useGapi } from '../../utils/hooks/useGapi';
-import Router from '../Router';
+import ThemedApp from '../ThemedApp';
 import DivLoader from './App.styled';
 
 function App() {
-  const gapi = useGapi();
+  const [gapi, error] = useGapi();
 
   if (!gapi) {
     return (
@@ -23,18 +21,11 @@ function App() {
 
   return (
     <AuthProvider>
-      {({ user }) => (
-        <VideoProvider>
-          <UserPreferencesProvider user={user}>
-            {({ theme }) => (
-              <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <Router />
-              </ThemeProvider>
-            )}
-          </UserPreferencesProvider>
-        </VideoProvider>
-      )}
+      <VideoProvider>
+        <UserPreferencesProvider>
+          <ThemedApp error={error} />
+        </UserPreferencesProvider>
+      </VideoProvider>
     </AuthProvider>
   );
 }

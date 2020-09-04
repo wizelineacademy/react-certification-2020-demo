@@ -2,6 +2,7 @@ import React, { useReducer, useEffect, createContext, useContext } from 'react';
 
 import { lightTheme, darkTheme } from '../../utils/theme';
 import { storage } from '../../utils/storage';
+import { useAuth } from '../Auth';
 import {
   addFavoriteVideoAction,
   removeFavoriteVideoAction,
@@ -27,23 +28,23 @@ function getUserStorageKey(user) {
 
 const lazyInit = (user) => (state) => {
   const userStorageKey = getUserStorageKey(user);
-  const storageObj = storage.has(userStorageKey) ? storage.get(userStorageKey) : {};
+  const storageObj = storage.get(userStorageKey);
 
   return {
     ...state,
     ...storageObj,
-    theme: storageObj.isLightTheme ? lightTheme : darkTheme,
+    theme: storageObj?.isLightTheme === false ? darkTheme : lightTheme,
   };
 };
 
-const UserPreferencesProvider = ({ children, user }) => {
+const UserPreferencesProvider = (props) => {
+  const { user } = useAuth();
+
   const [state, dispatch] = useReducer(
     userPreferencesReducer,
     initialState,
     lazyInit(user)
   );
-
-  console.log(state);
 
   function isFavoriteVideo(video) {
     return state.favoriteVideos.find((favoriteVideo) => favoriteVideo.id === video.id);
@@ -73,18 +74,7 @@ const UserPreferencesProvider = ({ children, user }) => {
     setInverseTheme: setInverseThemeAction(dispatch),
   };
 
-  function renderChildren() {
-    if (typeof children === 'function') {
-      return children(state);
-    }
-    return children;
-  }
-
-  return (
-    <UserPreferencesContext.Provider value={value}>
-      {renderChildren()}
-    </UserPreferencesContext.Provider>
-  );
+  return <UserPreferencesContext.Provider value={value} {...props} />;
 };
 
 export { useUserPreferences };

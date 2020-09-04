@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 function useGapi() {
   const [gapi, setGAPI] = useState(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     async function initGoogle() {
@@ -14,14 +15,14 @@ function useGapi() {
 
         setGAPI(window.gapi);
       } catch (e) {
-        console.error('-->', e);
+        setError(true);
       }
     }
 
     window.gapi.load('client:auth2', initGoogle);
   }, []);
 
-  return gapi;
+  return [gapi, error];
 }
 
 export { useGapi };

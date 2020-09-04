@@ -16,11 +16,6 @@ const storage = {
   remove(key) {
     window.localStorage.removeItem(key);
   },
-
-  has(key) {
-    const rawValue = window.localStorage.getItem(key);
-    return Boolean(rawValue);
-  },
 };
 
 export { storage };

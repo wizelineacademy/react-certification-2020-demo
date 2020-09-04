@@ -23,7 +23,7 @@ const videoStorageKey = 'REACT-CHALLENGE-VIDEO';
 function lazyInit(state) {
   return {
     ...state,
-    video: storage.has(videoStorageKey) ? storage.get(videoStorageKey) : null,
+    video: storage.get(videoStorageKey),
   };
 }
 
