@@ -5,13 +5,13 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { useUserPreferences } from '../../providers/UserPreferences';
 import Router from '../Router';
 
-function App({ error }) {
+function App() {
   const { theme } = useUserPreferences();
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router error={error} />
+      <Router />
     </ThemeProvider>
   );
 }

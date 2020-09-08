@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 
-export const DivContainer = styled.div`
+export const VideoWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;

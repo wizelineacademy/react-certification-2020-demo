@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import Card from '../Card';
 import { useVideo } from '../../providers/Video';
-import DivContainer from './VideoCards.styled';
+import VideoWrapper from './VideoCards.styled';
 
 const VideoCardList = ({ videos, getVideoPath }) => {
   const { push } = useHistory();
@@ -16,7 +16,7 @@ const VideoCardList = ({ videos, getVideoPath }) => {
   }
 
   return (
-    <DivContainer>
+    <VideoWrapper>
       {videos.map((video) => (
         <Card
           key={video.id}
@@ -27,7 +27,7 @@ const VideoCardList = ({ videos, getVideoPath }) => {
           onClick={() => handleOnClick(video)}
         />
       ))}
-    </DivContainer>
+    </VideoWrapper>
   );
 };
 

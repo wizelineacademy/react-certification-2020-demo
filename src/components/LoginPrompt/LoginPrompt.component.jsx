@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { useAuth } from '../../providers/Auth';
-import { AlertMargin, TextFieldMargin } from './LoginPrompt.styled';
+import { LoginPromptAlert, LoginPromptTextField } from './LoginPrompt.styled';
 
 const LoginPrompt = ({ isOpen, close }) => {
   const { login, loading, error } = useAuth();
@@ -30,15 +30,15 @@ const LoginPrompt = ({ isOpen, close }) => {
     >
       <DialogTitle id="alert-dialog-title">Login</DialogTitle>
       <DialogContent>
-        {error && <AlertMargin severity="error">{error}</AlertMargin>}
-        <TextFieldMargin
+        {error && <LoginPromptAlert severity="error">{error}</LoginPromptAlert>}
+        <LoginPromptTextField
           label="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           disabled={loading}
           fullWidth
         />
-        <TextFieldMargin
+        <LoginPromptTextField
           label="Password"
           type="password"
           value={password}

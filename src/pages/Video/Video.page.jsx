@@ -8,7 +8,7 @@ import { useAuth } from '../../providers/Auth';
 import { useUserPreferences } from '../../providers/UserPreferences';
 import { VideoList } from '../../components/VideoList';
 import {
-  DivContainer,
+  VideoWrapper,
   DivVideo,
   DivVideoDetails,
   TypographyDescription,
@@ -42,7 +42,7 @@ const Video = () => {
   const { id, title, description } = video;
 
   return (
-    <DivContainer>
+    <VideoWrapper>
       <DivVideo>
         <iframe
           title="video"
@@ -68,7 +68,7 @@ const Video = () => {
         </TypographyDescription>
       </DivVideo>
       <VideoList videos={videosList} getVideoPath={getVideoPath} />
-    </DivContainer>
+    </VideoWrapper>
   );
 };
 

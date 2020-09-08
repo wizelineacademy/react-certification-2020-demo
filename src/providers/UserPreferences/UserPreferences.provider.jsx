@@ -67,7 +67,9 @@ const UserPreferencesProvider = (props) => {
   }, [state.favoriteVideos, user, state.isLightTheme]);
 
   const value = {
-    ...state,
+    favoriteVideos: state.favoriteVideos,
+    isLightTheme: state.isLightTheme,
+    theme: state.theme,
     isFavoriteVideo,
     addFavoriteVideo: addFavoriteVideoAction(dispatch),
     removeFavoriteVideo: removeFavoriteVideoAction(dispatch),

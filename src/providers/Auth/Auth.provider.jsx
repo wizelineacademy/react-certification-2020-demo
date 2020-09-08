@@ -35,7 +35,9 @@ function AuthProvider(props) {
   }, [state.user]);
 
   const value = {
-    ...state,
+    loading: state.loading,
+    user: state.user,
+    error: state.error,
     login: loginAction(dispatch),
     logout: logoutAction(dispatch),
     isLoggedIn: Boolean(state.user),

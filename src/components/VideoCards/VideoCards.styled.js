@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const DivContainer = styled.div`
+const VideoWrapper = styled.div`
   width: 100%;
   padding: 20px;
 
@@ -12,4 +12,4 @@ const DivContainer = styled.div`
   box-sizing: border-box;
 `;
 
-export default DivContainer;
+export default VideoWrapper;

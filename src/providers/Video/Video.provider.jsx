@@ -39,7 +39,11 @@ const VideoProvider = (props) => {
   }, [state.video]);
 
   const value = {
-    ...state,
+    loading: state.loading,
+    error: state.error,
+    videos: state.videos,
+    video: state.video,
+    searchTerm: state.searchTerm,
     fetchVideos: fetchVideosAction(dispatch),
     setSearchTerm: setSearchTermAction(dispatch),
     setCurrentVideo: setCurrentVideoAction(dispatch),

@@ -7,7 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import { useAuth } from '../../providers/Auth';
-import DivContainer from './Menu.styled';
+import MenuWrapper from './Menu.styled';
 
 const Menu = (props) => {
   const { toggleDrawer, open } = props;
@@ -17,7 +17,7 @@ const Menu = (props) => {
 
   return (
     <Drawer open={open} onClose={() => toggleDrawer(false)}>
-      <DivContainer
+      <MenuWrapper
         role="presentation"
         onClick={() => toggleDrawer(false)}
         onKeyDown={() => toggleDrawer(false)}
@@ -36,7 +36,7 @@ const Menu = (props) => {
             </>
           )}
         </List>
-      </DivContainer>
+      </MenuWrapper>
     </Drawer>
   );
 };

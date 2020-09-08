@@ -1,8 +1,11 @@
 import styled from 'styled-components';
+import Alert from '@material-ui/lab/Alert';
 
-const DivLoader = styled.div`
+export const LoaderWrapper = styled.div`
   width: fit-content;
   margin: 100px auto;
 `;
 
-export default DivLoader;
+export const AppAlert = styled(Alert)`
+  margin: 1em;
+`;

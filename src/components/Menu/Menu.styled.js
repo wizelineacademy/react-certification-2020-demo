@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const DivContainer = styled.div`
+const MenuWrapper = styled.div`
   width: 250px;
 `;
 
-export default DivContainer;
+export default MenuWrapper;
