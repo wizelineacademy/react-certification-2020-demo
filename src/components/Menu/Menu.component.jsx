@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { useAuth } from '../../providers/Auth';
 import MenuWrapper from './Menu.styled';
 
-const Menu = (props) => {
+function Menu(props) {
   const { toggleDrawer, open } = props;
 
   const { push } = useHistory();
@@ -39,6 +39,6 @@ const Menu = (props) => {
       </MenuWrapper>
     </Drawer>
   );
-};
+}
 
 export default Menu;

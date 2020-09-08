@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { useAuth } from '../../providers/Auth';
 import { LoginPromptAlert, LoginPromptTextField } from './LoginPrompt.styled';
 
-const LoginPrompt = ({ isOpen, close }) => {
+function LoginPrompt({ isOpen, close }) {
   const { login, loading, error } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -57,6 +57,6 @@ const LoginPrompt = ({ isOpen, close }) => {
       </DialogActions>
     </Dialog>
   );
-};
+}
 
 export default LoginPrompt;

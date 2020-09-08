@@ -11,7 +11,7 @@ import {
   VideoListDetails,
 } from './VideoList.styled';
 
-const VideoList = ({ videos, getVideoPath }) => {
+function VideoList({ videos, getVideoPath }) {
   const { setCurrentVideo } = useVideo();
   const { push } = useHistory();
 
@@ -35,6 +35,6 @@ const VideoList = ({ videos, getVideoPath }) => {
       ))}
     </DivListVideo>
   );
-};
+}
 
 export { VideoList };

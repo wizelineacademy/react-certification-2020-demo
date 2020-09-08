@@ -5,7 +5,7 @@ import Card from '../Card';
 import { useVideo } from '../../providers/Video';
 import VideoWrapper from './VideoCards.styled';
 
-const VideoCardList = ({ videos, getVideoPath }) => {
+function VideoCardList({ videos, getVideoPath }) {
   const { push } = useHistory();
 
   const { setCurrentVideo } = useVideo();
@@ -29,6 +29,6 @@ const VideoCardList = ({ videos, getVideoPath }) => {
       ))}
     </VideoWrapper>
   );
-};
+}
 
 export default VideoCardList;

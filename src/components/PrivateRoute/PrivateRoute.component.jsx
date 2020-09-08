@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 import { useAuth } from '../../providers/Auth';
 
-function Private({ children, ...rest }) {
+function PrivateRoute({ children, ...rest }) {
   const { authenticated } = useAuth();
 
   return (
@@ -11,4 +11,4 @@ function Private({ children, ...rest }) {
   );
 }
 
-export default Private;
+export default PrivateRoute;
