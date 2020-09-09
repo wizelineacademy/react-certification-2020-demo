@@ -6,4 +6,4 @@ const TypographyTitle = styled(Typography)`
   padding-top: 30px;
 `;
 
-export default TypographyTitle;
+export { TypographyTitle };

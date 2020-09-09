@@ -27,7 +27,7 @@ function lazyInit(state) {
   };
 }
 
-const VideoProvider = (props) => {
+const VideoProvider = ({ children }) => {
   const [state, dispatch] = useReducer(videoReducer, initialState, lazyInit);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const VideoProvider = (props) => {
     setCurrentVideo: setCurrentVideoAction(dispatch),
   };
 
-  return <VideoContext.Provider {...props} value={value} />;
+  return <VideoContext.Provider value={value}>{children}</VideoContext.Provider>;
 };
 
 export { useVideo };

@@ -7,19 +7,19 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useVideo } from '../../providers/Video';
 import useStyles from './SearchBar.styled';
 
+const INPUT_PROPS = { 'aria-label': 'search' };
+
 function SearchBar() {
   const classes = useStyles();
-
   const { searchTerm, setSearchTerm, fetchVideos } = useVideo();
-
   const { push } = useHistory();
   const location = useLocation();
 
-  const handleSearchTermChanged = (event) => {
+  function handleSearchTermChanged(event) {
     setSearchTerm(event.target.value);
-  };
+  }
 
-  const handleKeyDown = (event) => {
+  function handleKeyDown(event) {
     if (event.key === 'Enter') {
       fetchVideos(searchTerm);
 
@@ -27,11 +27,16 @@ function SearchBar() {
         push('/');
       }
     }
-  };
+  }
 
   useEffect(() => {
     fetchVideos(searchTerm);
   }, []);
+
+  const inputBaseClasses = {
+    root: classes.inputRoot,
+    input: classes.inputInput,
+  };
 
   return (
     <div className={classes.search}>
@@ -40,11 +45,8 @@ function SearchBar() {
       </div>
       <InputBase
         placeholder="Search…"
-        classes={{
-          root: classes.inputRoot,
-          input: classes.inputInput,
-        }}
-        inputProps={{ 'aria-label': 'search' }}
+        classes={inputBaseClasses}
+        inputProps={INPUT_PROPS}
         onChange={handleSearchTermChanged}
         onKeyDown={handleKeyDown}
         value={searchTerm}

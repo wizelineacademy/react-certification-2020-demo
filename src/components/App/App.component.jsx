@@ -11,10 +11,12 @@ import { LoaderWrapper, AppAlert } from './App.styled';
 function App() {
   const [gapi, error] = useGapi();
 
+  if (error) {
+    return <AppAlert severity="error">Error loading app</AppAlert>;
+  }
+
   if (!gapi) {
-    return error ? (
-      <AppAlert>Error</AppAlert>
-    ) : (
+    return (
       <LoaderWrapper>
         <Loader type="Circles" width={50} height={50} color="#556cd6" visible />
       </LoaderWrapper>

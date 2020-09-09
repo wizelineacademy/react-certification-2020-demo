@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 
 import { useVideo } from '../../providers/Video';
 import { useAuth } from '../../providers/Auth';
@@ -14,7 +14,12 @@ import {
   TypographyDescription,
 } from './Video.styled';
 
-const Video = () => {
+const getVideoPath = (location) => ({ id }) => {
+  const route = location.pathname.includes('favorites') ? '/favorites/' : '/';
+  return route + id;
+};
+
+function Video() {
   const { video, videos } = useVideo();
   const { isLoggedIn } = useAuth();
   const {
@@ -24,22 +29,23 @@ const Video = () => {
     removeFavoriteVideo,
   } = useUserPreferences();
 
-  const { replace, location } = useHistory();
+  const { location } = useHistory();
 
   const videosList = location.pathname.includes('favorites') ? favoriteVideos : videos;
-  const getVideoPath = ({ id }) => {
-    if (location.pathname.includes('favorites')) {
-      return `/favorites/${id}`;
-    }
-    return `/${id}`;
-  };
 
   if (!video) {
-    replace('/');
-    return null;
+    return <Redirect to="/" />;
   }
 
   const { id, title, description } = video;
+
+  function handleAddVideo() {
+    addFavoriteVideo(video);
+  }
+
+  function handleRemoveVideo() {
+    removeFavoriteVideo(video);
+  }
 
   return (
     <VideoWrapper>
@@ -56,20 +62,18 @@ const Video = () => {
           </Typography>
           {isLoggedIn &&
             (isFavoriteVideo(video) ? (
-              <Button onClick={() => removeFavoriteVideo(video)}>
-                Remover de favoritos
-              </Button>
+              <Button onClick={handleRemoveVideo}>Remover de favoritos</Button>
             ) : (
-              <Button onClick={() => addFavoriteVideo(video)}>Agregar a favoritos</Button>
+              <Button onClick={handleAddVideo}>Agregar a favoritos</Button>
             ))}
         </DivVideoDetails>
         <TypographyDescription variant="body2" color="textSecondary" component="p">
           {description}
         </TypographyDescription>
       </DivVideo>
-      <VideoList videos={videosList} getVideoPath={getVideoPath} />
+      <VideoList videos={videosList} getVideoPath={getVideoPath(location)} />
     </VideoWrapper>
   );
-};
+}
 
 export default Video;

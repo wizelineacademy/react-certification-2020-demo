@@ -13,13 +13,13 @@ function LoginPrompt({ isOpen, close }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
+  async function handleLogin() {
     const user = await login(username, password);
 
     if (user) {
       close();
     }
-  };
+  }
 
   return (
     <Dialog

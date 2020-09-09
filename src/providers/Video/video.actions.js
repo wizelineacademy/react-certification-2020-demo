@@ -1,6 +1,6 @@
 import he from 'he';
 
-export const ACTIONS = {
+const ACTIONS = {
   FETCH_VIDEOS: 'FETCH_VIDEOS',
   FETCH_VIDEOS_SUCCESS: 'FETCH_VIDEOS_SUCCESS',
   FETCH_VIDEOS_ERROR: 'FETCH_VIDEOS_ERROR',
@@ -25,7 +25,7 @@ function filterVideoData(videoData) {
   };
 }
 
-export const fetchVideosAction = (dispatch) => async (searchTerm) => {
+const fetchVideosAction = (dispatch) => async (searchTerm) => {
   dispatch({ type: ACTIONS.FETCH_VIDEOS });
 
   try {
@@ -53,14 +53,16 @@ export const fetchVideosAction = (dispatch) => async (searchTerm) => {
   }
 };
 
-export const setSearchTermAction = (dispatch) => (searchTerm) =>
+const setSearchTermAction = (dispatch) => (searchTerm) =>
   dispatch({
     type: ACTIONS.SET_SEARCH_TERM,
     payload: { searchTerm },
   });
 
-export const setCurrentVideoAction = (dispatch) => (video) =>
+const setCurrentVideoAction = (dispatch) => (video) =>
   dispatch({
     type: ACTIONS.SET_CURRENT_VIDEO,
     payload: { video },
   });
+
+export { ACTIONS, fetchVideosAction, setSearchTermAction, setCurrentVideoAction };

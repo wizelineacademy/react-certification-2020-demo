@@ -28,16 +28,16 @@ function getUserStorageKey(user) {
 
 const lazyInit = (user) => (state) => {
   const userStorageKey = getUserStorageKey(user);
-  const storageObj = storage.get(userStorageKey);
+  const storageObject = storage.get(userStorageKey);
 
   return {
     ...state,
-    ...storageObj,
-    theme: storageObj?.isLightTheme === false ? darkTheme : lightTheme,
+    ...storageObject,
+    theme: storageObject?.isLightTheme === false ? darkTheme : lightTheme,
   };
 };
 
-const UserPreferencesProvider = (props) => {
+const UserPreferencesProvider = ({ children }) => {
   const { user } = useAuth();
 
   const [state, dispatch] = useReducer(
@@ -76,7 +76,11 @@ const UserPreferencesProvider = (props) => {
     setInverseTheme: setInverseThemeAction(dispatch),
   };
 
-  return <UserPreferencesContext.Provider value={value} {...props} />;
+  return (
+    <UserPreferencesContext.Provider value={value}>
+      {children}
+    </UserPreferencesContext.Provider>
+  );
 };
 
 export { useUserPreferences };

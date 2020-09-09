@@ -9,11 +9,17 @@ function useGapi() {
       try {
         await window.gapi.client.setApiKey(process.env.REACT_APP_API_KEY);
 
-        await window.gapi.client.load(
-          'https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'
-        );
-
-        setGAPI(window.gapi);
+        window.gapi.client
+          .load('https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest')
+          .then(
+            () => {
+              setGAPI(window.gapi);
+            },
+            (e) => {
+              console.log('Error', e.message);
+              setError(e.message);
+            }
+          );
       } catch (e) {
         setError(true);
       }

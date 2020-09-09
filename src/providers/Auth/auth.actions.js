@@ -1,13 +1,13 @@
 import loginApi from '../../api/login.api';
 
-export const ACTIONS = {
+const ACTIONS = {
   LOGIN: 'LOGIN',
   LOGIN_SUCCESS: 'LOGIN_SUCCESS',
   LOGIN_ERROR: 'LOGIN_ERROR',
   LOGOUT: 'LOGOUT',
 };
 
-export const loginAction = (dispatch) => async (username, password) => {
+const loginAction = (dispatch) => async (username, password) => {
   dispatch({ type: ACTIONS.LOGIN });
 
   try {
@@ -27,6 +27,8 @@ export const loginAction = (dispatch) => async (username, password) => {
   }
 };
 
-export const logoutAction = (dispatch) => () => {
+const logoutAction = (dispatch) => () => {
   dispatch({ type: ACTIONS.LOGOUT });
 };
+
+export { ACTIONS, loginAction, logoutAction };

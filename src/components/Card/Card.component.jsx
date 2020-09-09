@@ -3,7 +3,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-import { CardContainer, CardMediaStyled } from './Card.styled';
+import { CardContainer, CardMedia } from './Card.styled';
 
 function Card(props) {
   const { img, title, description, publishTime, id, onClick } = props;
@@ -21,7 +21,7 @@ function Card(props) {
   return (
     <CardContainer onClick={handleClick}>
       <CardActionArea>
-        <CardMediaStyled image={img} title={title} />
+        <CardMedia image={img} title={title} />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
             {title}

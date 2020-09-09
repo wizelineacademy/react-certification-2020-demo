@@ -9,14 +9,16 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { useAuth } from '../../providers/Auth';
 import MenuWrapper from './Menu.styled';
 
-function Menu(props) {
-  const { toggleDrawer, open } = props;
-
+function Menu({ toggleDrawer, open }) {
   const { push } = useHistory();
   const { isLoggedIn } = useAuth();
 
+  function handleClose() {
+    toggleDrawer(false);
+  }
+
   return (
-    <Drawer open={open} onClose={() => toggleDrawer(false)}>
+    <Drawer open={open} onClose={handleClose}>
       <MenuWrapper
         role="presentation"
         onClick={() => toggleDrawer(false)}

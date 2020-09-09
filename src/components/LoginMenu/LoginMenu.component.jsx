@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
@@ -7,30 +6,40 @@ import Menu from '@material-ui/core/Menu';
 
 import { useAuth } from '../../providers/Auth';
 
+const TRANSFORM_ORIGIN = {
+  vertical: 'top',
+  horizontal: 'right',
+};
+
+const ANCHOR_ORIGIN = {
+  vertical: 'top',
+  horizontal: 'right',
+};
+
 function LoginMenu({ setLoginDialogOpen }) {
   const { user, isLoggedIn, logout } = useAuth();
 
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElement, setAnchorElement] = useState(null);
 
-  const open = Boolean(anchorEl);
+  const open = Boolean(anchorElement);
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  function handleMenuItemClose() {
-    setAnchorEl(null);
+  function handleMenu(event) {
+    setAnchorElement(event.currentTarget);
   }
 
-  const doLogin = () => {
+  function handleMenuItemClose() {
+    setAnchorElement(null);
+  }
+
+  function doLogin() {
     setLoginDialogOpen(true);
     handleMenuItemClose();
-  };
+  }
 
-  const doLogout = () => {
+  function doLogout() {
     logout();
     handleMenuItemClose();
-  };
+  }
 
   return (
     <>
@@ -41,20 +50,14 @@ function LoginMenu({ setLoginDialogOpen }) {
         color="inherit"
         onClick={handleMenu}
       >
-        <Avatar src={user?.avatarUrl} alt="user" />
+        <Avatar src={user?.avatarUrl || null} alt="user" />
       </IconButton>
       <Menu
         id="menu-appbar"
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
+        anchorEl={anchorElement}
+        anchorOrigin={ANCHOR_ORIGIN}
         keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
+        transformOrigin={TRANSFORM_ORIGIN}
         open={open}
         onClose={handleMenuItemClose}
       >

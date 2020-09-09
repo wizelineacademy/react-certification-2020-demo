@@ -15,10 +15,10 @@ function VideoList({ videos, getVideoPath }) {
   const { setCurrentVideo } = useVideo();
   const { push } = useHistory();
 
-  const handleOnClick = (video) => {
+  function handleOnClick(video) {
     setCurrentVideo(video);
     push(getVideoPath(video));
-  };
+  }
 
   return (
     <DivListVideo>

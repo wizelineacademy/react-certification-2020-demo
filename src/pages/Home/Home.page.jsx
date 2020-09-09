@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { useVideo } from '../../providers/Video';
 import VideoCardList from '../../components/VideoCards';
-import TypographyTitle from './Home.styled';
+import { TypographyTitle } from './Home.styled';
 
 const Home = () => {
   const { videos } = useVideo();

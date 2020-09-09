@@ -7,13 +7,12 @@ import VideoWrapper from './VideoCards.styled';
 
 function VideoCardList({ videos, getVideoPath }) {
   const { push } = useHistory();
-
   const { setCurrentVideo } = useVideo();
 
-  function handleOnClick(video) {
+  const handleOnClick = (video) => () => {
     setCurrentVideo(video);
     push(getVideoPath(video));
-  }
+  };
 
   return (
     <VideoWrapper>
@@ -24,7 +23,7 @@ function VideoCardList({ videos, getVideoPath }) {
           title={video.title}
           description={video.description}
           publishTime={video.publishTime}
-          onClick={() => handleOnClick(video)}
+          onClick={handleOnClick(video)}
         />
       ))}
     </VideoWrapper>
