@@ -5,9 +5,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { CardContainer, CardMedia } from './Card.styled';
 
-function Card(props) {
-  const { img, title, description, publishTime, id, onClick } = props;
-
+function Card({ img, title, description, publishTime, id, onClick }) {
   function handleClick() {
     onClick({
       img,
