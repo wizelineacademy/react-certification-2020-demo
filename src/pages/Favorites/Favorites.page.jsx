@@ -6,10 +6,10 @@ import VideoCards from '../../components/VideoCards';
 
 const ALERT_STYLES = { margin: 30 };
 
+const getVideoPath = (video) => `/favorites/${video.id}`;
+
 function Favorites() {
   const { favoriteVideos } = useUserPreferences();
-
-  const getVideoPath = (video) => `/favorites/${video.id}`;
 
   return favoriteVideos.length === 0 ? (
     <Alert severity="error" style={ALERT_STYLES}>
