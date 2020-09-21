@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import './Layout.styles.css';
+import Navbar from '../Navbar';
+import Menu from '../Menu';
+import LayoutWrapper from './Layout.styled';
 
 function Layout({ children }) {
-  return <main className="container">{children}</main>;
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  return (
+    <LayoutWrapper>
+      <Navbar toggleDrawer={setOpenDrawer} />
+      <Menu open={openDrawer} toggleDrawer={setOpenDrawer} />
+      {children}
+    </LayoutWrapper>
+  );
 }
 
 export default Layout;

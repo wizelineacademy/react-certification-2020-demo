@@ -1,4 +1,6 @@
 import React, { useReducer, useEffect, createContext, useContext } from 'react';
+
+import { storage } from '../../utils/storage';
 import {
   fetchVideosAction,
   setSearchTermAction,
@@ -18,30 +20,36 @@ function useVideo() {
 
 const videoStorageKey = 'REACT-CHALLENGE-VIDEO';
 
-export const VideoProvider = (props) => {
-  const [state, dispatch] = useReducer(videoReducer, {
-    ...initialState,
-    video: localStorage.getItem(videoStorageKey)
-      ? JSON.parse(localStorage.getItem(videoStorageKey))
-      : null,
-  });
+function lazyInit(state) {
+  return {
+    ...state,
+    video: storage.get(videoStorageKey),
+  };
+}
+
+const VideoProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(videoReducer, initialState, lazyInit);
+
+  useEffect(() => {
+    if (state.video) {
+      storage.set(videoStorageKey, state.video);
+    } else {
+      storage.remove(videoStorageKey);
+    }
+  }, [state.video]);
 
   const value = {
-    ...state,
+    loading: state.loading,
+    error: state.error,
+    videos: state.videos,
+    video: state.video,
+    searchTerm: state.searchTerm,
     fetchVideos: fetchVideosAction(dispatch),
     setSearchTerm: setSearchTermAction(dispatch),
     setCurrentVideo: setCurrentVideoAction(dispatch),
   };
 
-  useEffect(() => {
-    if (state.video) {
-      localStorage.setItem(videoStorageKey, JSON.stringify(state.video));
-    } else {
-      localStorage.removeItem(videoStorageKey);
-    }
-  }, [state.video]);
-
-  return <VideoContext.Provider {...props} value={value} />;
+  return <VideoContext.Provider value={value}>{children}</VideoContext.Provider>;
 };
 
 export { useVideo };

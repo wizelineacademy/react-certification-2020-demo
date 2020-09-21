@@ -1,5 +1,8 @@
 import React, { useReducer, useEffect, createContext, useContext } from 'react';
 
+import { lightTheme, darkTheme } from '../../utils/theme';
+import { storage } from '../../utils/storage';
+import { useAuth } from '../Auth';
 import {
   addFavoriteVideoAction,
   removeFavoriteVideoAction,
@@ -9,7 +12,7 @@ import { userPreferencesReducer, initialState } from './userPreferences.reducer'
 
 const UserPreferencesContext = createContext(null);
 
-function useUserPreferencesContext() {
+function useUserPreferences() {
   const context = useContext(UserPreferencesContext);
   if (!context) {
     throw new Error(`Can't use "useAuth" without an AuthProvider!`);
@@ -23,52 +26,62 @@ function getUserStorageKey(user) {
   return user ? `${userPreferencesStorageKey}-${user.id}` : '';
 }
 
-export const UserPreferencesProvider = ({ children, user, ...otherProps }) => {
-  const [state, dispatch] = useReducer(userPreferencesReducer, {
-    ...initialState,
-    ...(localStorage.getItem(getUserStorageKey(user))
-      ? JSON.parse(localStorage.getItem(getUserStorageKey(user)))
-      : {}),
-  });
+const lazyInit = (user) => (state) => {
+  const userStorageKey = getUserStorageKey(user);
+  const storageObject = storage.get(userStorageKey);
+
+  return {
+    ...state,
+    ...storageObject,
+    theme: storageObject?.isLightTheme === false ? darkTheme : lightTheme,
+  };
+};
+
+const UserPreferencesProvider = ({ children }) => {
+  const { user } = useAuth();
+
+  const [state, dispatch] = useReducer(
+    userPreferencesReducer,
+    initialState,
+    lazyInit(user)
+  );
 
   function isFavoriteVideo(video) {
     return state.favoriteVideos.find((favoriteVideo) => favoriteVideo.id === video.id);
   }
 
+  useEffect(() => {
+    const userStorageKey = getUserStorageKey(user);
+
+    if (!user) {
+      storage.set(userStorageKey, {
+        isLightTheme: state.isLightTheme,
+      });
+      return;
+    }
+
+    storage.set(userStorageKey, {
+      favoriteVideos: state.favoriteVideos,
+      isLightTheme: state.isLightTheme,
+    });
+  }, [state.favoriteVideos, user, state.isLightTheme]);
+
   const value = {
-    ...state,
+    favoriteVideos: state.favoriteVideos,
+    isLightTheme: state.isLightTheme,
+    theme: state.theme,
     isFavoriteVideo,
     addFavoriteVideo: addFavoriteVideoAction(dispatch),
     removeFavoriteVideo: removeFavoriteVideoAction(dispatch),
     setInverseTheme: setInverseThemeAction(dispatch),
   };
 
-  useEffect(() => {
-    if (!user) {
-      return;
-    }
-    localStorage.setItem(
-      getUserStorageKey(user),
-      JSON.stringify({
-        favoriteVideos: state.favoriteVideos,
-        isLightTheme: state.isLightTheme,
-      })
-    );
-  }, [state.favoriteVideos, user, state.isLightTheme]);
-
-  function renderChildren() {
-    if (typeof children === 'function') {
-      return children(state);
-    }
-    return children;
-  }
-
   return (
-    <UserPreferencesContext.Provider {...otherProps} value={value}>
-      {renderChildren()}
+    <UserPreferencesContext.Provider value={value}>
+      {children}
     </UserPreferencesContext.Provider>
   );
 };
 
-export { useUserPreferencesContext };
+export { useUserPreferences };
 export default UserPreferencesProvider;
