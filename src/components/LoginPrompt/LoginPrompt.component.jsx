@@ -33,6 +33,7 @@ function LoginPrompt({ isOpen, close }) {
         {error && <LoginPromptAlert severity="error">{error}</LoginPromptAlert>}
         <LoginPromptTextField
           label="Username"
+          id="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           disabled={loading}
@@ -40,6 +41,7 @@ function LoginPrompt({ isOpen, close }) {
         />
         <LoginPromptTextField
           label="Password"
+          id="password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -52,7 +54,7 @@ function LoginPrompt({ isOpen, close }) {
           Cancel
         </Button>
         <Button onClick={handleLogin} color="primary" autoFocus disabled={loading}>
-          {loading ? 'Login in...' : 'Login'}
+          {loading ? 'Logging in...' : 'Login'}
         </Button>
       </DialogActions>
     </Dialog>

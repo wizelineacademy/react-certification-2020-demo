@@ -45,12 +45,12 @@ function LoginMenu({ setLoginDialogOpen }) {
     <>
       <IconButton
         edge="end"
-        aria-label="account of current user"
+        aria-label="User profile dropdown"
         aria-haspopup="true"
         color="inherit"
         onClick={handleMenu}
       >
-        <Avatar src={user?.avatarUrl || null} alt="user" />
+        <Avatar src={user?.avatarUrl || null} alt="Avatar" />
       </IconButton>
       <Menu
         id="menu-appbar"
@@ -62,9 +62,9 @@ function LoginMenu({ setLoginDialogOpen }) {
         onClose={handleMenuItemClose}
       >
         {isLoggedIn ? (
-          <MenuItem onClick={doLogout}>Cerrar Sesion</MenuItem>
+          <MenuItem onClick={doLogout}>Logout</MenuItem>
         ) : (
-          <MenuItem onClick={doLogin}>Iniciar sesion</MenuItem>
+          <MenuItem onClick={doLogin}>Login</MenuItem>
         )}
       </Menu>
     </>

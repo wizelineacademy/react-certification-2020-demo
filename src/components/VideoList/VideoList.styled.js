@@ -1,17 +1,22 @@
 import styled from 'styled-components';
 
-const DivListVideo = styled.div`
+const ListVideoWrapper = styled.div`
   width: 30%;
   height: 100%;
   overflow: scroll;
 `;
 
-const DivListItem = styled.div`
+const ListVideoItem = styled.button`
   width: 100%;
   height: 100px;
   position: relative;
   display: flex;
   align-items: center;
+  border: none;
+  color: inherit;
+  background: inherit;
+  text-align: inherit;
+  overflow: hidden;
 
   & :hover {
     cursor: pointer;
@@ -30,4 +35,4 @@ const VideoListDetails = styled.div`
   box-sizing: border-box;
 `;
 
-export { DivListVideo, DivListItem, ImgVideo, VideoListDetails };
+export { ListVideoWrapper, ListVideoItem, ImgVideo, VideoListDetails };

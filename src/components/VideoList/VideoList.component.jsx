@@ -5,8 +5,8 @@ import { useHistory } from 'react-router-dom';
 
 import { useVideo } from '../../providers/Video';
 import {
-  DivListVideo,
-  DivListItem,
+  ListVideoWrapper,
+  ListVideoItem,
   ImgVideo,
   VideoListDetails,
 } from './VideoList.styled';
@@ -21,19 +21,19 @@ function VideoList({ videos, getVideoPath }) {
   }
 
   return (
-    <DivListVideo>
+    <ListVideoWrapper>
       {videos.map((video) => (
-        <Fragment key={video.etag}>
-          <DivListItem onClick={() => handleOnClick(video)}>
-            <ImgVideo src={video.image} alt="image" />
+        <Fragment key={video.id}>
+          <ListVideoItem onClick={() => handleOnClick(video)}>
+            <ImgVideo src={video.image} alt={video.title} />
             <VideoListDetails>
               <Typography>{video.title}</Typography>
             </VideoListDetails>
-          </DivListItem>
+          </ListVideoItem>
           <Divider />
         </Fragment>
       ))}
-    </DivListVideo>
+    </ListVideoWrapper>
   );
 }
 

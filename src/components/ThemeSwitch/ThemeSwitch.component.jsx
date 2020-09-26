@@ -14,7 +14,7 @@ function ThemeSwitch() {
           checked={!isLightTheme}
           onChange={setInverseTheme}
           name="darkMode"
-          inputProps={{ 'aria-label': 'secondary checkbox' }}
+          inputProps={{ 'aria-label': 'theme switch' }}
         />
       }
       label="Dark mode"
