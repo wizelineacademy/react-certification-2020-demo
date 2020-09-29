@@ -75,13 +75,3 @@ describe('setCurrentVideoAction', () => {
     );
   });
 });
-
-// describe('setCurrentVideoAction', () => {
-//   it('triggers inverse theme action', async () => {
-//     await setCurrentVideoAction(dispatch)(mockedVideo);
-
-//     expect(dispatch).toHaveBeenCalledWith(
-//       expect.objectContaining({ type: ACTIONS.SET_INVERSE_THEME })
-//     );
-//   });
-// });
