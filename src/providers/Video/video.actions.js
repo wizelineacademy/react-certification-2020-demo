@@ -1,4 +1,5 @@
 import he from 'he';
+import videosApi from '../../api/videos.api';
 
 const ACTIONS = {
   FETCH_VIDEOS: 'FETCH_VIDEOS',
@@ -29,13 +30,8 @@ const fetchVideosAction = (dispatch) => async (searchTerm) => {
   dispatch({ type: ACTIONS.FETCH_VIDEOS });
 
   try {
-    const part = ['id', 'snippet'];
-    const { result } = await window.gapi.client.youtube.search.list({
-      maxResults: 25,
-      q: searchTerm,
-      part,
-    });
-    const videos = result.items
+    const results = await videosApi(searchTerm);
+    const videos = results
       .filter((video) => video.id.kind === 'youtube#video')
       .map(filterVideoData);
 
@@ -65,4 +61,10 @@ const setCurrentVideoAction = (dispatch) => (video) =>
     payload: { video },
   });
 
-export { ACTIONS, fetchVideosAction, setSearchTermAction, setCurrentVideoAction };
+export {
+  ACTIONS,
+  fetchVideosAction,
+  setSearchTermAction,
+  setCurrentVideoAction,
+  filterVideoData,
+};

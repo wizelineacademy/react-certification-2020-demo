@@ -62,9 +62,9 @@ function Video() {
           </Typography>
           {isLoggedIn &&
             (isFavoriteVideo(video) ? (
-              <Button onClick={handleRemoveVideo}>Remover de favoritos</Button>
+              <Button onClick={handleRemoveVideo}>Remove from favorites</Button>
             ) : (
-              <Button onClick={handleAddVideo}>Agregar a favoritos</Button>
+              <Button onClick={handleAddVideo}>Add to favorites</Button>
             ))}
         </DivVideoDetails>
         <TypographyDescription variant="body2" color="textSecondary" component="p">

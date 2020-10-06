@@ -36,9 +36,7 @@ describe('SearchBar.component', () => {
 
     render(<SearchBar />);
 
-    expect(useVideoMock.fetchVideos).toHaveBeenCalledWith(
-      useVideoMock.searchTerm
-    );
+    expect(useVideoMock.fetchVideos).toHaveBeenCalledWith(useVideoMock.searchTerm);
   });
 
   it('updates search term when typing in the search input', () => {
@@ -62,8 +60,6 @@ describe('SearchBar.component', () => {
 
     fireEvent.keyDown(inputSearch, { key: 'Enter' });
 
-    expect(useVideoMock.fetchVideos).toHaveBeenCalledWith(
-      useVideoMock.searchTerm
-    );
+    expect(useVideoMock.fetchVideos).toHaveBeenCalledWith(useVideoMock.searchTerm);
   });
 });

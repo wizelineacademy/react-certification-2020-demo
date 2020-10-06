@@ -8,11 +8,6 @@ import { VideoList } from './VideoList.component';
 jest.mock('../../providers/Video', () => ({
   useVideo: jest.fn(),
 }));
-// jest.mock('../Card', () => ({ title, onClick }) => (
-//   <button type="button" onClick={onClick}>
-//     {title}
-//   </button>
-// ));
 jest.mock('react-router-dom', () => ({
   useHistory: () => ({ push: jest.fn() }),
 }));
